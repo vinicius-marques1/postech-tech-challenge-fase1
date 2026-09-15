@@ -1,0 +1,12 @@
+# Dependências do entregável EXTRA (visão computacional / CNN).
+# Este arquivo deve conter somente bibliotecas opcionais para a etapa extra.
+# Não é necessário para o ambiente principal do projeto.
+#
+# Como instalar:
+#   pip install -r requirements-extra.txt
+#   # ou
+#   uv pip install -r requirements-extra.txt
+#
+# Use esse arquivo somente quando for trabalhar com visão computacional,
+# processamento de imagens ou CNN. Adicione aqui apenas as dependências
+# específicas da tarefa extra.
