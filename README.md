@@ -8,7 +8,7 @@ O projeto usa o dataset **Breast Cancer Wisconsin (Diagnostic)**, com 569 exames
 - Cópia utilizada: [Kaggle (uciml/breast-cancer-wisconsin-data)](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data), salva em `data/raw/breast_cancer_wisconsin.csv`.
 - Referência: Street, W. N., Wolberg, W. H., Mangasarian, O. L. (1993). *Nuclear feature extraction for breast tumor diagnosis*.
 
-A inspeção inicial da base está em `notebooks/01_data_inspection.ipynb`.
+A inspeção inicial da base (incluindo a análise de correlação com o diagnóstico) está em `notebooks/01_data_inspection.ipynb`. A limpeza está em `notebooks/02_data_cleaning.ipynb` e gera a base tratada em `data/processed/breast_cancer_wisconsin_clean.csv`.
 
 ## Setup do ambiente de trabalho
 
