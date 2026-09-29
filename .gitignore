@@ -11,4 +11,5 @@ wheels/
 .env
 
 # Models
-models/
+models/*
+!models/README.md
