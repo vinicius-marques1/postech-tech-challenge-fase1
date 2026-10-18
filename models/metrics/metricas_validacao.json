@@ -1,0 +1,66 @@
+{
+  "modelo": "LogisticRegression",
+  "pipeline": {
+    "scaler": "RobustScaler",
+    "classificador": "LogisticRegression",
+    "hiperparametros_ajustados": {
+      "C": 1,
+      "class_weight": "balanced"
+    }
+  },
+  "decisao": {
+    "limiar": 0.35,
+    "custo_fn": 10,
+    "regra": "mínimo custo esperado (CUSTO_FN x FN + FP), com regra de 1 erro-padrão"
+  },
+  "validacao_cruzada_treino": {
+    "no_limiar": {
+      "limiar": 0.35,
+      "recall": 0.9729411764705882,
+      "especificidade": 0.9615789473684211,
+      "folds": 5,
+      "repeticoes": 20
+    },
+    "auc": {
+      "media": 0.995252837977296,
+      "desvio": 0.004491239452422903,
+      "folds": 5,
+      "repeticoes": 1
+    }
+  },
+  "teste": {
+    "limiar": 0.35,
+    "recall": 0.9523809523809523,
+    "recall_ic95_wilson": [
+      0.8421014760304114,
+      0.9868424750910944
+    ],
+    "especificidade": 0.9861111111111112,
+    "especificidade_ic95_wilson": [
+      0.9254339785252386,
+      0.9975440481170943
+    ],
+    "precisao": 0.975609756097561,
+    "precisao_ic95_wilson": [
+      0.8740493794422576,
+      0.9956814684310874
+    ],
+    "auc": 0.9966931216931216
+  },
+  "reproducao": {
+    "arquivo_de_dados": "../data/processed/breast_cancer_wisconsin_clean.csv",
+    "random_state": 42,
+    "divisao": {
+      "proporcao_teste": 0.2,
+      "estratificada": true,
+      "n_treino": 455,
+      "n_teste": 114
+    },
+    "versoes": {
+      "python": "3.12.15",
+      "scikit-learn": "1.9.1",
+      "numpy": "2.5.3",
+      "pandas": "3.0.5"
+    }
+  }
+}
