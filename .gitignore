@@ -13,3 +13,4 @@ wheels/
 # Models
 models/*
 !models/README.md
+!models/metrics/
