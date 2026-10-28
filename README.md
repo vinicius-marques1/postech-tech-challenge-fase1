@@ -10,6 +10,22 @@ O projeto usa o dataset **Breast Cancer Wisconsin (Diagnostic)**, com 569 exames
 
 A inspeção inicial da base (incluindo a análise de correlação com o diagnóstico) está em `notebooks/01_data_inspection.ipynb`. A limpeza está em `notebooks/02_data_cleaning.ipynb` e gera a base tratada em `data/processed/breast_cancer_wisconsin_clean.csv`.
 
+## Treinando e demonstrando o modelo
+
+O modelo final e suas métricas estão documentados em `notebooks/03_modelagem.ipynb` e `models/metrics/metricas_validacao.json`. Para gerar o artefato do modelo sem executar o notebook:
+
+```bash
+uv run python src/treinar_modelo.py
+```
+
+O script reproduz a divisão estratificada de treino e teste registrada nas métricas e salva o pipeline completo em `models/tuned/logisticregression_tuned.joblib`. Em seguida, demonstre previsões com dois perfis fictícios e com 50 exames reservados no conjunto de teste:
+
+```bash
+uv run python src/prever_exemplo.py
+```
+
+Os perfis fictícios são sintetizados a partir das medianas por classe calculadas somente no conjunto de treino e não incluem rótulos reais. Para os 50 exames reservados, a saída mostra `y_verdadeiro`, `y_previsto`, probabilidade de malignidade, acerto por exame e a porcentagem de acerto total. Esses exames não participam do treinamento do modelo. As previsões são ilustrativas e não constituem diagnóstico médico. O artefato em `models/tuned/` é local e ignorado pelo Git, portanto execute primeiro o script de treinamento em cada ambiente.
+
 ## Setup do ambiente de trabalho
 
 Este projeto usa Python e bibliotecas de ciência de dados e machine learning. O ambiente pode ser configurado de duas formas: com uv (recomendado) ou com pip tradicional.
