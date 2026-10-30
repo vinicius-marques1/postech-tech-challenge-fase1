@@ -6,7 +6,7 @@ O projeto usa o dataset **Breast Cancer Wisconsin (Diagnostic)**, com 569 exames
 
 - Fonte primária: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic), licença CC BY 4.0.
 - Cópia utilizada: [Kaggle (uciml/breast-cancer-wisconsin-data)](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data), salva em `data/raw/breast_cancer_wisconsin.csv`.
-- Referência: Street, W. N., Wolberg, W. H., Mangasarian, O. L. (1993). *Nuclear feature extraction for breast tumor diagnosis*.
+- Referência: Street, W. N., Wolberg, W. H., Mangasarian, O. L. (1993). _Nuclear feature extraction for breast tumor diagnosis_.
 
 A inspeção inicial da base (incluindo a análise de correlação com o diagnóstico) está em `notebooks/01_data_inspection.ipynb`. A limpeza está em `notebooks/02_data_cleaning.ipynb` e gera a base tratada em `data/processed/breast_cancer_wisconsin_clean.csv`.
 
@@ -185,7 +185,7 @@ uv pip install -r requirements-extra.txt
 
 ## EXTRA — visão computacional (CNN para pneumonia)
 
-O entregável extra está em `notebooks/05_cnn_pneumonia.ipynb`: uma CNN treinada no **PneumoniaMNIST** (versão curada da base [Chest X-Ray Pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)) para detectar pneumonia em radiografias de tórax, com calibração do limiar clínico e interpretabilidade via Grad-CAM.
+O entregável extra está em `notebooks/04_cnn_pneumonia.ipynb`: uma CNN treinada no **PneumoniaMNIST** (versão curada da base [Chest X-Ray Pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)) para detectar pneumonia em radiografias de tórax, com calibração do limiar clínico e interpretabilidade via Grad-CAM.
 
 Antes de executar, instale as dependências extras na raiz do projeto:
 
