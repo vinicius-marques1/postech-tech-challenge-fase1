@@ -10,3 +10,6 @@
 # Use esse arquivo somente quando for trabalhar com visão computacional,
 # processamento de imagens ou CNN. Adicione aqui apenas as dependências
 # específicas da tarefa extra.
+torch>=2.2
+torchvision>=0.17
+medmnist>=3.0

@@ -183,6 +183,18 @@ uv pip install -r requirements-extra.txt
 
 > Mantém o ambiente principal limpo e separa as dependências opcionais da etapa extra.
 
+## EXTRA — visão computacional (CNN para pneumonia)
+
+O entregável extra está em `notebooks/05_cnn_pneumonia.ipynb`: uma CNN treinada no **PneumoniaMNIST** (versão curada da base [Chest X-Ray Pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)) para detectar pneumonia em radiografias de tórax, com calibração do limiar clínico e interpretabilidade via Grad-CAM.
+
+Antes de executar, instale as dependências extras na raiz do projeto:
+
+```bash
+uv pip install -r requirements-extra.txt
+```
+
+O dataset é baixado automaticamente para `data/medmnist/` na primeira execução (não versionado). O modelo treinado é salvo em `models/cnn_pneumonia.pt` e as métricas em `models/metrics/cnn_pneumonia_teste.json`.
+
 ## Guia de contribuição
 
 Para quem está começando no Git, consulte o guia completo em [docs/guia-contribuicao-git.md](docs/guia-contribuicao-git.md).
