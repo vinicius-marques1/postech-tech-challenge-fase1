@@ -6,9 +6,25 @@ O projeto usa o dataset **Breast Cancer Wisconsin (Diagnostic)**, com 569 exames
 
 - Fonte primária: [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic), licença CC BY 4.0.
 - Cópia utilizada: [Kaggle (uciml/breast-cancer-wisconsin-data)](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data), salva em `data/raw/breast_cancer_wisconsin.csv`.
-- Referência: Street, W. N., Wolberg, W. H., Mangasarian, O. L. (1993). *Nuclear feature extraction for breast tumor diagnosis*.
+- Referência: Street, W. N., Wolberg, W. H., Mangasarian, O. L. (1993). _Nuclear feature extraction for breast tumor diagnosis_.
 
 A inspeção inicial da base (incluindo a análise de correlação com o diagnóstico) está em `notebooks/01_data_inspection.ipynb`. A limpeza está em `notebooks/02_data_cleaning.ipynb` e gera a base tratada em `data/processed/breast_cancer_wisconsin_clean.csv`.
+
+## Treinando e demonstrando o modelo
+
+O modelo final e suas métricas estão documentados em `notebooks/03_modelagem.ipynb` e `models/metrics/metricas_validacao.json`. Para gerar o artefato do modelo sem executar o notebook:
+
+```bash
+uv run python src/treinar_modelo.py
+```
+
+O script reproduz a divisão estratificada de treino e teste registrada nas métricas e salva o pipeline completo em `models/tuned/logisticregression_tuned.joblib`. Em seguida, demonstre previsões com dois perfis fictícios e com 50 exames reservados no conjunto de teste:
+
+```bash
+uv run python src/prever_exemplo.py
+```
+
+Os perfis fictícios são sintetizados a partir das medianas por classe calculadas somente no conjunto de treino e não incluem rótulos reais. Para os 50 exames reservados, a saída mostra `y_verdadeiro`, `y_previsto`, probabilidade de malignidade, acerto por exame e a porcentagem de acerto total. Esses exames não participam do treinamento do modelo. As previsões são ilustrativas e não constituem diagnóstico médico. O artefato em `models/tuned/` é local e ignorado pelo Git, portanto execute primeiro o script de treinamento em cada ambiente.
 
 ## Setup do ambiente de trabalho
 
@@ -169,7 +185,7 @@ uv pip install -r requirements-extra.txt
 
 ## EXTRA — visão computacional (CNN para pneumonia)
 
-O entregável extra está em `notebooks/05_cnn_pneumonia.ipynb`: uma CNN treinada no **PneumoniaMNIST** (versão curada da base [Chest X-Ray Pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)) para detectar pneumonia em radiografias de tórax, com calibração do limiar clínico e interpretabilidade via Grad-CAM.
+O entregável extra está em `notebooks/04_cnn_pneumonia.ipynb`: uma CNN treinada no **PneumoniaMNIST** (versão curada da base [Chest X-Ray Pneumonia](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia)) para detectar pneumonia em radiografias de tórax, com calibração do limiar clínico e interpretabilidade via Grad-CAM.
 
 Antes de executar, instale as dependências extras na raiz do projeto:
 

@@ -17,7 +17,7 @@ models/
 ├── baseline/
 │   └── modelo_baseline.joblib
 ├── tuned/
-│   └── modelo_tuned.joblib
+│   └── logisticregression_tuned.joblib
 ├── metrics/
 │   └── metricas_validacao.json
 └── artifacts/
@@ -41,7 +41,23 @@ models/
 
 ## Recomendação para o projeto
 
-Os modelos gerados em notebooks ou scripts podem ser salvos aqui com a convenção:
+O notebook `notebooks/03_modelagem.ipynb` registra o modelo final e suas métricas. Para reproduzir o treinamento sem executar o notebook, use:
+
+```bash
+uv run python src/treinar_modelo.py
+```
+
+O script lê os hiperparâmetros, o limiar e os parâmetros de divisão de `metrics/metricas_validacao.json`, treina o pipeline com a mesma divisão estratificada e salva `tuned/logisticregression_tuned.joblib`. O artefato Joblib inclui o pipeline (pré-processamento e classificador), a ordem das features, o limiar, os dois perfis fictícios e 50 exemplos de teste com seus rótulos verdadeiros para a demonstração de acurácia.
+
+Para executar a demonstração de previsões:
+
+```bash
+uv run python src/prever_exemplo.py
+```
+
+Esse script usa dois perfis fictícios construídos a partir das medianas por classe do conjunto de treino e apresenta também previsões para 50 exames do conjunto de teste preservado. Para esses exames, exibe o rótulo verdadeiro, o previsto, a probabilidade de malignidade e a acurácia total da amostra. Os 50 exames não participam do treinamento. Os perfis fictícios servem apenas para demonstrar o fluxo; nenhum resultado constitui diagnóstico médico.
+
+Os demais modelos gerados em notebooks ou scripts podem ser salvos aqui com a convenção:
 
 ```python
 import joblib
@@ -57,4 +73,4 @@ joblib.dump(preprocessador, "models/artifacts/preprocessador.joblib")
 
 ## Observação
 
-Essa pasta deve ser usada para artefatos de produção e experimentação local, mantendo um histórico simples e organizado do que foi treinado e validado. Ela não é versionada no git.
+Essa pasta deve ser usada para artefatos de produção e experimentação local, mantendo um histórico simples e organizado do que foi treinado e validado. Os artefatos de modelo são ignorados pelo Git; as métricas registradas em `metrics/` permanecem como referência reproduzível.
