@@ -1,5 +1,64 @@
 # Tech Challenge Fase 1
 
+Base de um sistema de apoio ao diagnóstico para um hospital universitário. A tarefa principal classifica tumores de mama como **benignos ou malignos** a partir de medidas de exames de punção aspirativa por agulha fina (PAAF). Como entrega extra, uma **CNN** detecta pneumonia em radiografias de tórax.
+
+O modelo é uma ferramenta de **apoio à triagem**: ele prioriza os exames na fila do especialista, mas o médico sempre tem a palavra final no diagnóstico.
+
+- **Relatório técnico:** [`docs/relatorio_tecnico.pdf`](docs/relatorio_tecnico.pdf) (fonte em [`docs/relatorio_tecnico.md`](docs/relatorio_tecnico.md))
+- **Vídeo de demonstração:** _(link a adicionar)_
+
+## Resumo dos resultados
+
+### Câncer de mama — Regressão Logística
+
+O critério de escolha foi o **recall da classe maligna**, porque um falso negativo (câncer classificado como benigno) é o erro mais grave. Seis modelos (Dummy, KNN, SVM, Regressão Logística, Árvore de Decisão e Random Forest) foram comparados com `GridSearchCV` e validação cruzada estratificada de 5 folds no conjunto de treino. A Regressão Logística (`C = 1`, `class_weight = 'balanced'`, com `RobustScaler`) empatou com o SVM no recall e foi escolhida pela AUC mais alta e estável, pelas probabilidades nativas e pela interpretabilidade.
+
+O limiar de decisão de **0,35** minimiza o custo esperado `10 × FN + FP` (com a regra de 1 erro-padrão) e foi escolhido apenas com validação cruzada repetida no treino.
+
+| Métrica (teste, 114 exames, limiar 0,35) | Valor |
+|---|---|
+| Recall (sensibilidade) | **0,952** (40 de 42 malignos; IC 95%: 0,84–0,99) |
+| Precisão | 0,976 |
+| Especificidade | 0,986 |
+| Acurácia | 0,974 |
+| F1-score (maligno) | 0,964 |
+| ROC AUC | 0,997 |
+
+Na validação cruzada (20 repetições, 170 malignos), o mesmo limiar tem sensibilidade de 0,973 e especificidade de 0,962.
+
+<p align="center">
+  <img src="docs/figuras/matriz_confusao_teste.png" alt="Matriz de confusão no conjunto de teste" width="40%">
+  <img src="docs/figuras/shap_summary.png" alt="Resumo SHAP no conjunto de teste" width="55%">
+</p>
+
+As variáveis que mais pesam na decisão (coeficientes, SHAP e permutation importance) estão ligadas ao tamanho, à irregularidade e à heterogeneidade dos núcleos celulares, como `texture_worst`, `area_se`, `symmetry_worst` e `concavity_worst`.
+
+### EXTRA — Pneumonia em radiografias com CNN
+
+CNN compacta (cerca de 295 mil parâmetros) treinada do zero no PneumoniaMNIST (64×64). O limiar clínico foi escolhido na validação para garantir sensibilidade mínima de 98%.
+
+| Limiar (teste, 624 imagens) | Recall | Especificidade | Precisão | F1 | ROC AUC |
+|---|---|---|---|---|---|
+| Padrão (0,50) | 0,962 | 0,876 | 0,928 | 0,945 | 0,970 |
+| **Clínico (0,0665)** | **0,990** | 0,688 | 0,841 | 0,909 | 0,970 |
+
+<p align="center">
+  <img src="docs/figuras/cnn_gradcam.png" alt="Grad-CAM da CNN em acertos e falsos positivos" width="70%">
+</p>
+
+A discussão completa dos resultados, das limitações e do uso prático está no [relatório técnico](docs/relatorio_tecnico.pdf).
+
+## Estrutura do projeto
+
+```text
+data/raw/          base original (Breast Cancer Wisconsin)
+data/processed/    base tratada usada na modelagem
+notebooks/         01 inspeção, 02 limpeza, 03 modelagem, 04 CNN (extra)
+src/               treinar_modelo.py e prever_exemplo.py
+models/metrics/    métricas registradas dos modelos
+docs/              relatório técnico e figuras
+```
+
 ## Dados
 
 O projeto usa o dataset **Breast Cancer Wisconsin (Diagnostic)**, com 569 exames de punção aspirativa por agulha fina classificados como tumor maligno ou benigno.
@@ -45,7 +104,7 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 Depois, reinicie o terminal ou execute:
 
 ```bash
-source $HOME/.cargo/env
+source $HOME/.local/bin/env
 ```
 
 #### Windows (PowerShell)
