@@ -5,7 +5,7 @@ Base de um sistema de apoio ao diagnóstico para um hospital universitário. A t
 O modelo é uma ferramenta de **apoio à triagem**: ele prioriza os exames na fila do especialista, mas o médico sempre tem a palavra final no diagnóstico.
 
 - **Relatório técnico:** [`docs/relatorio_tecnico.pdf`](docs/relatorio_tecnico.pdf) (fonte em [`docs/relatorio_tecnico.md`](docs/relatorio_tecnico.md))
-- **Vídeo de demonstração:** _(link a adicionar)_
+- **Vídeo de demonstração:** [_(link a adicionar)_](https://www.youtube.com/watch?v=qSYzng-XjtQ)
 
 ## Resumo dos resultados
 
